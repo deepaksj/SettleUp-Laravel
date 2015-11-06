@@ -1,0 +1,85 @@
+@CHARSET "ISO-8859-1";
+
+.setWidth {
+	max-width: 100px;
+}
+
+.concat div {
+	overflow: hidden;
+	-ms-text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: inherit;
+}
+
+.expensesTableHeader2Row {
+	font-style: italic;
+}
+
+.reportTitle {
+	color: blue;
+	font-style: italic;
+}
+
+.reportHeader {
+	font-weight: bold;
+}
+
+.expensesTable {
+	text-align: center;
+}
+
+.expensesTableHeader {
+	text-align: center;
+	border-left: thin dotted black;
+}
+
+.expensesTableBorder {
+	border-left: thin dotted black;
+}
+
+.reportTotals {
+	font-weight: bold;
+	text-align: center;
+	border-top: thin double black;
+	border-bottom: thin double black;
+}
+
+.reportSubTotals {
+	color: blue;
+	font-weight: bold;
+	font-style: italic;
+	text-align: center;
+	border-top: thin double black;
+}
+
+.currency:before {
+	content: '$';	
+}
+
+.currencyNegative {
+	color: red;
+}
+
+.currencyNegative:before {
+	content: '$(';
+}
+
+.currencyNegative:after {
+	content: ')';
+}
+
+.settlementTotals {
+	font-weight: bold;
+	text-align: right;
+	color: blue;
+	vertical-align: center;
+	border-top: thin double black;
+	border-bottom: thin double black;
+}
+
+.pagination {
+	margin: 0px;
+	float: right;
+}
