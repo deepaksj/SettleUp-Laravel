@@ -9,7 +9,7 @@ use App\Settlement;
 class AppMailer {
 	
 	protected $mailer;
-	protected $from = "admin@settleup.com";
+	protected $from;
 	protected $to;
 	protected $view;
 	protected $data = [];
@@ -20,7 +20,7 @@ class AppMailer {
 	
 	public function deliver() {
 		$this->mailer->send($this->view, $this->data, function($message) {
-			$message->from($this->from, "Administrator")
+			$message->from(env('MAIL_GLOBAL_FROM_EMAIL'), env('MAIL_GLOBAL_FROM_NAME'))
 					->to($this->to);
 		});
 	}
@@ -34,7 +34,7 @@ class AppMailer {
 	}
 	
 	public function sendEmailInvitation($fromUser, $toUser) {
-		$this->from = $fromUser->email;
+		//$this->from = $fromUser->email;
 		$this->to = $toUser->email;
 		$this->view = "emails.invitation";
 		$this->data = compact("toUser", "fromUser");
@@ -43,13 +43,13 @@ class AppMailer {
 	
 	public function sendSettlementConfirmation($fromUser, $settlement) {
 		$counterparty = $settlement->oweeUser;
-		$counterpartyOwes = true; //A flag to check how owes whom for the view;
+		$counterpartyOwes = true; //A flag to check who owes whom for the view;
 		if($settlement->owee_id==$fromUser->id) {
 			$counterparty = $settlement->owedUser;
 			$counterpartyOwes = false;
 		}
 		
-		$this->from = $fromUser->email;
+		//$this->from = $fromUser->email;
 		$this->to = $counterparty->email;
 		$this->view = "emails.settlementConfirmation";
 		$this->data = compact("fromUser", "settlement", "counterparty", "counterpartyOwes");
@@ -58,7 +58,7 @@ class AppMailer {
 	
 	public function sendAddedToReportNotification($report) {
 
-		$this->from = $report->owner->email;
+		//$this->from = $report->owner->email;
 		$this->view = "emails.addedToReportNotification";
 		foreach($report->users as $user) {
 			$this->to = $user->email;
@@ -69,7 +69,7 @@ class AppMailer {
 	
 	public function sendReportClosedNotification($report) {
 		
-		$this->from = $report->owner->email;
+		//$this->from = $report->owner->email;
 		$this->view = "emails.closedReportNotification";
 		foreach($report->users as $user) {
 			$this->to = $user->email;
@@ -84,7 +84,7 @@ class AppMailer {
 			array_push($settlementMessages, $settlement->oweeUser->name . " owes " . $settlement->owedUser->name . " $" . $settlement->amount);
 		}
 		
-		$this->from = $report->owner->email;
+		//$this->from = $report->owner->email;
 		$this->view = "emails.settlementsDeterminedNotification";
 		foreach($report->users as $user) {
 			$this->to = $user->email;
@@ -94,7 +94,7 @@ class AppMailer {
 	}
 	
 	public function sendReportDeletedNotification($report) {
-		$this->from = $report->owner->email;
+		//$this->from = $report->owner->email;
 		$this->view = "emails.reportDeletedNotification";
 
 		foreach($report->users as $user) {
