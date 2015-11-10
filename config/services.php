@@ -37,7 +37,7 @@ return [
 	'facebook' => [
 		'client_id' => env('FACEBOOK_APP_ID'),
 		'client_secret' => env('FACEBOOK_APP_SECRET'),
-		'redirect' => 'http://localhost:8888/login/facebook'	
+		'redirect' => env('FACEBOOK_APP_REDIRECT'),
 	],
 
 ];

@@ -78,7 +78,7 @@ return [
 	|
 	*/
 
-	'key' => env('APP_KEY', 'SFDFJSDVLPTRIV#$4534DFV'),
+	'key' => env('APP_KEY', 'SFDFJSDVLPTRIV#$4534DFVf'),
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
