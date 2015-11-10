@@ -82,7 +82,7 @@ class UserController extends Controller {
 		if($sortOrder == null) {
 			$sortOrder = 'asc';
 		}
-		$friends = \Auth::user()->friends()->orderBy('name', $sortOrder)->paginate(5);
+		$friends = \Auth::user()->friends()->orderBy('name', $sortOrder)->paginate(10);
 		if($sortOrder=='asc') {
 			$sortOrder = 'desc';
 		} else {

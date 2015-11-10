@@ -64,8 +64,9 @@ class SettlementController extends Controller {
 		}
 		
 		$report = ExpenseReport::find($reportId);
+		$isArchived = $report->isArchivedForUser(\Auth::user()->id);
 		
-		return view('settlements.reportSettlements', compact('authUserSettlements', 'otherUserSettlements', 'report', 'authenticatedUser'));
+		return view('settlements.reportSettlements', compact('authUserSettlements', 'otherUserSettlements', 'report', 'authenticatedUser', 'isArchived'));
 	}
 	
 	public function showAll() {
@@ -75,7 +76,7 @@ class SettlementController extends Controller {
 		$sortOrder = Request::get("sortOrder", "asc");
 		$statusTab = Request::get("statusTab");
 		$currentPage = Request::get("page", 1);
-		$maxPerPage = 6;
+		$maxPerPage = 10;
 		if($statusTab==null) { 
 			if(session()->has('statusTab')) {
 				$statusTab = session('statusTab');

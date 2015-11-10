@@ -26,17 +26,15 @@
 						<td>{{ $friend['email'] }}</td>
 					</tr>
 				@endforeach
-					<tr>
-						<td colspan=3><?php echo $friends->appends(['sortOrder' => ($sortOrder=='asc'?'desc':'asc')])->render(); ?></td>
-					</tr>
 			</table>
 			<div class="row">
-				<div class="col-sm-3">
+				<div class="col-sm-3 form-group">
 					{!! Form::submit('Delete Friends', ['class' => 'btn btn-primary form-control']) !!}
 				</div>
-				<div class="col-sm-3">
-					<a class="btn btn-primary" role="button" data-toggle="modal" data-target="#addFriend" id="addFriendTrigger">Add a friend</a>
+				<div class="col-sm-3 form-group">
+					<a class="btn btn-primary form-control" role="button" data-toggle="modal" data-target="#addFriend" id="addFriendTrigger">Add a friend</a>
 				</div>
+				<div class="col-sm-6"><?php echo $friends->appends(['sortOrder' => ($sortOrder=='asc'?'desc':'asc')])->render(); ?></div>
 			</div>
 		{!! Form::close() !!}
 		<br>

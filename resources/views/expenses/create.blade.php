@@ -5,10 +5,13 @@
 	@include('utilities.quickLinks', ['links' => [['/expenseReports', 'Active Reports'], ['/expenseReports/'. $report->id, $report->title]]])
 	<h3>Add a new expense to <span class="reportTitle">{{ $report->title }}</span></h3>
 	<hr>
-	{!! Form::open(['url' => 'expenses/add/'. $report->id]) !!}
-		@include('expenses._expenseForm', ['editForm' => 0, 'expenseEditable' => 1, 'expense' =>null])
-	{!! Form::close() !!}
-
+	<div class="col-sm-6">
+		{!! Form::open(['url' => 'expenses/add/'. $report->id]) !!}
+			@include('expenses._expenseForm', ['editForm' => 0, 'expenseEditable' => 1, 'expense' =>null])
+		{!! Form::close() !!}
+	</div>
+	<div class="col-sm-6">@include('errors.list')</div>
+	
 @stop
 @section('footer')
 <script type="text/javascript">

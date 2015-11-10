@@ -28,7 +28,7 @@
 		        	<a class="dropdown-toggle" data-toggle="dropdown" href="#">Expense Reports<span class="caret"></span></a>
           			<ul class="dropdown-menu">
 			            <li><a href="/expenseReports/create">Create New Report</a></li>
-			            <li><a href="/expenseReports">Your Active Reports</a></li>
+			            <li><a href="/expenseReports">Active Reports</a></li>
 			            <li><a href="/settledExpenseReports">Archived Reports</a></li>
 			        </ul>
 		        </li>
@@ -36,7 +36,6 @@
 		        <li><a href="/friends">Friends</a></li>
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
-		        <li class="active"><a href="#">Your Total: $1,200</a></li>
 		        <li class="dropdown">
           			<a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ (\Auth::user() != null)?(\Auth::user()->name):"" }}<span class="caret"></span></a>
           			<ul class="dropdown-menu">

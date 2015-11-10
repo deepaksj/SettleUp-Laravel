@@ -26,8 +26,9 @@ class ExpenseController extends Controller {
 		if($report->status || $expense->owner_id != \Auth::user()->id) {
 			$expenseEditable = false;
 		}
+		$isArchived = $report->isArchivedForUser(\Auth::user()->id);
 		
-		return view('expenses.update', compact('report', 'expense', 'expenseEditable'));
+		return view('expenses.update', compact('report', 'expense', 'expenseEditable', 'isArchived'));
 	}
 	
 	public function updateExpense($expenseId, AddExpenseRequest $request) {

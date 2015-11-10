@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-	@include('utilities.quickLinks', ['links' => [['/expenseReports', 'Active Reports'], ['/expenseReports/'. $report->id, $report->title]]])
+	@include('utilities.quickLinks', ['links' => [[$isArchived?'/settledExpenseReports':'/expenseReports', $isArchived?'Archived Reports':'Active Reports'], ['/expenseReports/'. $report->id, $report->title]]])
 	<h3>Settlement Details for Report: <span class="reportTitle">{{ $report->title }}</span></h3>
 	<hr>
 	@include('utilities.flashmessage')

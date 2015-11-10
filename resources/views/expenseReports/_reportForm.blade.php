@@ -28,6 +28,6 @@
 	<div class="col-sm-5">{!! Form::input('date', 'startDate', $users==null?date('Y-m-d'):null, ['class' => 'form-control']) !!}</div>
 </div>
 <div class="form-group row">
-	<div class="col-sm-4 col-sm-offset-3">{!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}</div>
-	<div class="col-sm-4"><a href="/expenseReports/{{ $cancelButtonURL }}" class="btn btn-primary col-sm-12" role="button">Cancel</a></div>
+	<div class="col-sm-4 col-sm-offset-3 form-group">{!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}</div>
+	<div class="col-sm-4"><a href="/expenseReports/{{ $cancelButtonURL }}" class="btn btn-primary form-control" role="button">Cancel</a></div>
 </div>

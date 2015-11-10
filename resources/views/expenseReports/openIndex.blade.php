@@ -31,20 +31,18 @@
 							@empty
 								<tr><td colspan=7>You have no {{$reportStatus?'closed':'open'}} reports!</td></tr>
 						@endforelse
-						<tr>
-							<td colspan=7>
-								@if($reportStatus==0)
-									<div class="col-sm-3">
-										<a class="btn btn-primary col-sm-12" role="button" data-toggle="modal" data-target="#deleteReports">Delete Expense Reports</a>
-									</div>
-									<div class="col-sm-3"><a href="/expenseReports/create" class="btn btn-primary col-sm-12" role="button" >Create New Report</a></div>
-								@else
-									<div class="col-sm-6"></div>
-								@endif
-								<div class="col-sm-6"><?php echo $reports->appends(['sortBy' => $sortBy, 'sortOrder' => ($sortOrder=='asc'?'desc':'asc')])->render(); ?></div>
-							</td>
-						</tr>
 					</table>
+					<div class="row">
+						@if($reportStatus==0)
+							<div class="col-sm-3 form-group">
+								<a class="btn btn-primary form-control" role="button" data-toggle="modal" data-target="#deleteReports">Delete Expense Reports</a>
+							</div>
+							<div class="col-sm-3 form-group"><a href="/expenseReports/create" class="btn btn-primary form-control" role="button" >Create New Report</a></div>
+						@else
+							<div class="col-sm-6"></div>
+						@endif
+						<div class="col-sm-6"><?php echo $reports->appends(['sortBy' => $sortBy, 'sortOrder' => ($sortOrder=='asc'?'desc':'asc')])->render(); ?></div>
+					</div>
 					<div id="deleteReports" class="modal" role="dialog">
 						<div class="modal-dialog modal-sm">
 					    	<div class="modal-content">

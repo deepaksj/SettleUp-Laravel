@@ -17,7 +17,7 @@
 	@forelse($userSettlements as $settlement)
 		<tr>
 			<td style="{{($prevCounterparty==$settlement->counterpartyId?'border-top: none;':'')}}">{{$prevCounterparty==$settlement->counterpartyId?'':$settlement->counterpartyName}}</td>
-			<td>{{$settlement->reportTitle}}</td>
+			<td><a href="/expenseReports/{{$settlement->reportId}}">{{$settlement->reportTitle}}</a></td>
 			<td>{{date('d M Y', strtotime($settlement->closeDate))}}</td>
 			@if(\Auth::user()->id == $settlement->owed_id)
 				<td><span style="font-weight: bold;" hidden>User Total: </span><span value="{{$settlement->amount}}" class="currency" id="{{$settlement->id}}mainspan" data-toggle="tooltip" data-placement="auto right" title="{{$settlement->counterpartyName}} owes you ${{ number_format($settlement->amount, 2, ".", ",") }}">{{ number_format($settlement->amount, 2, ".", ",") }}</span><span id="{{$settlement->id}}altspan" data-toggle="tooltip" data-placement="auto right" title="{{$settlement->counterpartyName}} owes you ${{ number_format($settlement->amount, 2, ".", ",") }}" hidden>---</span></td>

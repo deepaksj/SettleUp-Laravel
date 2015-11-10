@@ -157,4 +157,20 @@ class ExpenseReport extends Model {
 		}
 		return false;
 	}
+	
+	public function isArchivedForUser($userId) {
+		if($this->status == 3) {
+			return true;
+		} else if($this->status == 2) {
+			$settlements = $this->settlements()->where('completed', 0)
+												->where(function ($query) use($userId) {
+													$query->where('owee_id', $userId)
+															->orWhere('owed_id', $userId);
+												});
+			if($settlements->count() == 0) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

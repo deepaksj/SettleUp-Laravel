@@ -155,19 +155,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 			$sortOrder = 'asc';
 		}
 		$selectStmt = "(select settlements.id, users.name as counterpartyName, users.id as counterpartyId, expense_reports.closeDate, 
-						expense_reports.title as reportTitle, settlements.amount, owee_id, owed_id from settlements 
+						expense_reports.id as reportId, expense_reports.title as reportTitle, settlements.amount, owee_id, owed_id from settlements 
 						inner join users on users.id=owee_id
 						inner join expense_reports on report_id=expense_reports.id 
 						where owed_id=? and completed=?) union all
 				 
 						(select settlements.id, users.name as counterpartyName, users.id as counterpartyId, expense_reports.closeDate, 
-						expense_reports.title as counterparty, settlements.amount, owee_id, owed_id from settlements 
+						expense_reports.id as reportId, expense_reports.title as reportTitle, settlements.amount, owee_id, owed_id from settlements 
 						inner join users on users.id=owed_id
 						inner join expense_reports on expense_reports.id=report_id 
 						where owee_id=? and completed=?) order by " . $sortBy . " " . $sortOrder . " LIMIT 1000";
 		
 		$settlements = DB::select($selectStmt, [$this->id, $settlementStatus, $this->id, $settlementStatus]);
-		
+
 		return $settlements;
 	}
 	

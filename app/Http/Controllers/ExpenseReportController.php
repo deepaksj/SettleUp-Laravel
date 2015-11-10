@@ -41,9 +41,9 @@ class ExpenseReportController extends Controller {
 		
 		$reports = [];
 		if($reportStatus) {
-			$reports = $user->closedButUnsettledReports()->orderBy($sortBy, $sortOrder)->paginate(5);
+			$reports = $user->closedButUnsettledReports()->orderBy($sortBy, $sortOrder)->paginate(10);
 		} else {
-			$reports = $user->openReports()->orderBy($sortBy, $sortOrder)->paginate(5);
+			$reports = $user->openReports()->orderBy($sortBy, $sortOrder)->paginate(10);
 		}
 		if($sortOrder == "asc") {
 			$sortOrder = "desc";
@@ -67,7 +67,7 @@ class ExpenseReportController extends Controller {
 			$sortOrder = 'desc';
 		}
 		
-		$reports = $user->settledReports()->orderBy($sortBy, $sortOrder)->paginate(5);
+		$reports = $user->settledReports()->orderBy($sortBy, $sortOrder)->paginate(10);
 		  
 		if($sortOrder == 'desc') {
 			$sortOrder = 'asc';
@@ -91,13 +91,14 @@ class ExpenseReportController extends Controller {
 		if($report->owner_id == \Auth::user()->id) {
 			$isReportOwner = true;
 		}
-		$expenses = $report->expenses()->orderBy($sortBy, $sortOrder)->paginate(5);
+		$expenses = $report->expenses()->orderBy($sortBy, $sortOrder)->paginate(10);
 		if($sortOrder == "asc") {
 			$sortOrder = "desc";
 		} else {
 			$sortOrder = "asc";
 		}
-		return view('expenseReports.show', compact('report', 'expenses', 'sortBy', 'sortOrder', 'isReportOwner'));
+		$isArchived = $report->isArchivedForUser(\Auth::user()->id);
+		return view('expenseReports.show', compact('report', 'expenses', 'sortBy', 'sortOrder', 'isReportOwner', 'isArchived'));
 	}
 	
 	public function createReport() {

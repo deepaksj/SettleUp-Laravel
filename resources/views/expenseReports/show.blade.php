@@ -1,33 +1,37 @@
 @extends('app')
 @section('content')
-	@include('utilities.quickLinks', ['links' => [['/expenseReports', 'Active Reports']]])
+	@include('utilities.quickLinks', ['links' => [[$isArchived?'/settledExpenseReports':'/expenseReports', $isArchived?'Archived Reports':'Active Reports']]])
 	<h3>{{ $report->title }}</h3><span style="color: red;">{{$report->status?" (Report has been closed)":""}}</span>
 	<hr>
 	<div class="row">
-		<div class="col-sm-2 reportHeader" >Start Date: </div><div class="col-sm-2"> {{ date('d M Y', strtotime($report->startDate)) }}</div>
-		<div class="col-sm-2 reportHeader" >Close Date: </div><div class="col-sm-2">
-			@if($report->closeDate == null)
-				{{ '-' }}
-			@else {{ date('d M Y', strtotime($report->closeDate)) }}
-			@endif
+		<div class="col-sm-10">
+			<div class="row">
+				<div class="col-sm-2 reportHeader" >Start Date: </div><div class="col-sm-2"> {{ date('d M Y', strtotime($report->startDate)) }}</div>
+				<div class="col-sm-2 reportHeader" >Close Date: </div><div class="col-sm-2">
+					@if($report->closeDate == null)
+						{{ '-' }}
+					@else {{ date('d M Y', strtotime($report->closeDate)) }}
+					@endif
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2 reportHeader" >Report Owner: </div>
+				<div class="col-sm-2" >{{$isReportOwner?'You':$report->owner->name}}</div>
+				<div class="col-sm-2 reportHeader" >Report Users: </div>
+				<div class="col-sm-6">
+					@foreach($report->users as $user)
+						{{ ($user->id==\Auth::user()->id?'You':$user->name) . ","}}
+					@endforeach
+				</div>
+			</div>
 		</div>
-		<div class="col-sm-2"></div>
-		<div class="col-sm-2">
+		<div class="col-sm-2 form-group">
 			@if(!$report->status && $isReportOwner)
-				<a href="/expenseReports/update/{{ $report->id }}" class="btn btn-primary col-sm-12" role="button">Edit Report</a>
+				<a href="/expenseReports/update/{{ $report->id }}" class="btn btn-primary form-control" role="button">Edit Report</a>
 			@endif
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-2 reportHeader" >Report Owner: </div>
-		<div class="col-sm-2" >{{$isReportOwner?'You':$report->owner->name}}</div>
-		<div class="col-sm-2 reportHeader" >Report Users: </div>
-		<div class="col-sm-6">
-			@foreach($report->users as $user)
-				{{ ($user->id==\Auth::user()->id?'You':$user->name) . ","}}
-			@endforeach
 		</div>
-	</div>
 	<hr>
 	@include('errors.list')
 	@include('utilities.flashmessage')
@@ -48,7 +52,7 @@
 							<th class="col-sm-2 expensesTable">Expense Total</th>
 							<th class="col-sm-2 expensesTable">You Spent (A)</th>
 							<th class="col-sm-2 expensesTable">You Used (B)</th>
-							<th class="col-sm-2 expensesTable">Owe/Owed (A-B)</th>
+							<th class="col-sm-2 expensesTable expensesTableBorder">Owe/Owed (A-B)</th>
 						</tr>
 						@forelse($expenses as $expense)
 							@if($expense->participationRatio($userId = \Auth::user()->id) > 0 || $expense->participantContribution($userId) > 0)
@@ -86,8 +90,8 @@
 								<th class="col-sm-1 expensesTableHeader" colspan="2">{{ $user->name }}</th>
 							@endforeach
 						</tr>
-						<tr  class="info expensesTableHeader2Row">
-							<td class="col-sm-1">Spent</td>
+						<tr  class="info">
+							<td class="col-sm-1 expensesTableBorder">Spent</td>
 							<td class="col-sm-1">Used</td>
 							@foreach($report->users as $user)
 								<td class="col-sm-1 expensesTableBorder">Spent</td>
@@ -135,14 +139,17 @@
 	    	<div class="row">
 	    		@if(!$report->status)
 		    		<div class="form-group col-sm-2">{!! Form::submit('Delete Expenses', ['class' => 'btn btn-primary form-control']) !!}</div>
-					<div class="col-sm-2"><a href="/expenses/add/{{ $report->id }}" class="btn btn-primary col-sm-12" role="button">Add Expense</a></div>
+					<div class="form-group col-sm-2"><a href="/expenses/add/{{ $report->id }}" class="btn btn-primary form-control" role="button">Add Expense</a></div>
 					@if($isReportOwner)
-						<div class="col-sm-2"><a class="btn btn-primary col-sm-12" role="button" data-toggle="modal" data-target="#closeReport">Close Report</a></div>
+						<div class="col-sm-2 form-group"><a class="btn btn-primary form-control" role="button" data-toggle="modal" data-target="#closeReport">Close Report</a></div>
+					@else
+						<div class="col-sm-2 form-group"></div>
 					@endif
 				@else
-					<div class="col-sm-2"><a href="/settlements/{{ $report->id }}" class="btn btn-primary col-sm-12" role="button">Settlements</a></div>					
+					<div class="col-sm-2 form-group"><a href="/settlements/{{ $report->id }}" class="btn btn-primary col-sm-12 form-control" role="button">Settlements</a></div>
+					<div class="col-sm-4 form-group"></div>					
 				@endif
-				<?php echo $expenses->appends(['sortBy' => $sortBy, 'sortOrder' => ($sortOrder=='asc'?'desc':'asc')])->render(); ?>
+				<div class="form-group col-sm-6"><?php echo $expenses->appends(['sortBy' => $sortBy, 'sortOrder' => ($sortOrder=='asc'?'desc':'asc')])->render(); ?></div>
 			</div>
 		{!! Form::close() !!}
 	</div>
