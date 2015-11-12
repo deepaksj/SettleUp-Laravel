@@ -11,7 +11,7 @@
 				<div class="col-sm-4">{!! Form::text('name', null) !!}</div>
 			</div>
 			<div class="form-group row">
-				<div class="col-sm-3">{!! Form::label('password', 'Password:') !!}</div>
+				<div class="col-sm-3">{!! Form::label('email', 'Email:') !!}</div>
 				<div class="col-sm-4">{!! Form::email('email', null, ['disabled']) !!}</div>
 			</div>
 			<div class="form-group row">
@@ -23,7 +23,7 @@
 				<div class="col-sm-4">{!! Form::password('password_confirmation', null) !!}</div>
 			</div>
 			<div class="form-group row">
-				<div class="col-sm-4 col-sm-offset-3">{!! Form::submit("Update Account", ['class' => 'btn btn-primary form-control']) !!}</div>
+				<div class="col-sm-4 col-sm-offset-1">{!! Form::submit("Update Account", ['class' => 'btn btn-primary form-control']) !!}</div>
 			</div>
 			
 		</div>

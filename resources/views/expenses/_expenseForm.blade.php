@@ -2,13 +2,13 @@
 	<div class="col-sm-2">
 		{!! Form::label('date', 'Date: ') !!}
 	</div>
-	<div class="col-sm-3">
+	<div class="col-sm-4">
 		{!! Form::input('date', 'date', $editForm?null:date('Y-m-d'), ['class' => 'form-control', 'required', $expenseEditable?'':'disabled']) !!}
 	</div>
 	<div class="col-sm-3">
 		{!! Form::label('owner', 'Expense Owner: ') !!}
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 		{{ ($expense==null || $expenseEditable)?'You':$expense->owner->name }}
 	</div>
 </div>

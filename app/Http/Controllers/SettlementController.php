@@ -14,7 +14,7 @@ class SettlementController extends Controller {
 
 	public function store($reportId, AppMailer $mailer)
 	{
-		$report = ExpenseReport::find($reportId);
+		$report = ExpenseReport::find($reportId)->load('owner', 'users');
 		$input = Request::all();
 		if(session()->has('settlements')) {
 			$input = session('settlements');

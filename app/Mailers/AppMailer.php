@@ -11,6 +11,7 @@ class AppMailer {
 	protected $mailer;
 	protected $from;
 	protected $to;
+	protected $subject;
 	protected $view;
 	protected $data = [];
 	
@@ -19,9 +20,13 @@ class AppMailer {
 	}
 	
 	public function deliver() {
-		$this->mailer->send($this->view, $this->data, function($message) {
+		$to = $this->to;
+		$subject = $this->subject;
+		
+		$this->mailer->queue($this->view, $this->data, function($message) use ($to, $subject) {
 			$message->from(env('MAIL_GLOBAL_FROM_EMAIL'), env('MAIL_GLOBAL_FROM_NAME'))
-					->to($this->to);
+					->to($to)
+					->subject($subject);
 		});
 	}
 	
@@ -29,7 +34,7 @@ class AppMailer {
 		$this->to = $user->email;
 		$this->view = "emails.confirm";
 		$this->data = compact("user");
-		
+		$this->subject = "Please confirm your email address";
 		$this->deliver();
 	}
 	
@@ -38,6 +43,7 @@ class AppMailer {
 		$this->to = $toUser->email;
 		$this->view = "emails.invitation";
 		$this->data = compact("toUser", "fromUser");
+		$this->subject = $fromUser->name . " has invited you to join App-portion";
 		$this->deliver();
 	}
 	
@@ -53,6 +59,7 @@ class AppMailer {
 		$this->to = $counterparty->email;
 		$this->view = "emails.settlementConfirmation";
 		$this->data = compact("fromUser", "settlement", "counterparty", "counterpartyOwes");
+		$this->subject = "Confirmation of a settlement for the report: " . $settlement->report->title;
 		$this->deliver();
 	}
 	
@@ -60,6 +67,7 @@ class AppMailer {
 
 		//$this->from = $report->owner->email;
 		$this->view = "emails.addedToReportNotification";
+		$this->subject = $report->owner->name . " has added you to the report: " . $report->title;
 		foreach($report->users as $user) {
 			$this->to = $user->email;
 			$this->data = compact("report", "user");
@@ -71,6 +79,7 @@ class AppMailer {
 		
 		//$this->from = $report->owner->email;
 		$this->view = "emails.closedReportNotification";
+		$this->subject = $report->title . " has been closed";
 		foreach($report->users as $user) {
 			$this->to = $user->email;
 			$this->data = compact("report", "user");
@@ -86,6 +95,7 @@ class AppMailer {
 		
 		//$this->from = $report->owner->email;
 		$this->view = "emails.settlementsDeterminedNotification";
+		$this->subject = "Settlements for report: " . $report->title;
 		foreach($report->users as $user) {
 			$this->to = $user->email;
 			$this->data = compact("report", "user", "settlementMessages");
@@ -96,6 +106,7 @@ class AppMailer {
 	public function sendReportDeletedNotification($report) {
 		//$this->from = $report->owner->email;
 		$this->view = "emails.reportDeletedNotification";
+		$this->subject = "Report: " . $report->title . " has been deleted";
 
 		foreach($report->users as $user) {
 			$this->to = $user->email;
@@ -108,7 +119,7 @@ class AppMailer {
 		$this->to = $user->email;
 		$this->view = "emails.accountUpdatedNotification";
 		$this->data = compact("user");
-		
+		$this->subject = "Account updated";
 		$this->deliver();
 	}
 }

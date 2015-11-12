@@ -140,19 +140,18 @@ class ExpenseReportController extends Controller {
 	public function deleteReports(DeleteReportRequest $request, AppMailer $mailer) {
 		$input = $request->all();
 		$reports = ExpenseReport::find($input['report_ids']);
-		$reports->load('users');
+		$reports->load('users', 'owner');
 		foreach($reports as $report) {
 			$report->delete();
 			$mailer->sendReportDeletedNotification($report);
 		}
-		//ExpenseReport::destroy($input['report_ids']);
 		session()->flash('message', count($input['report_ids']) . " Report(s) deleted");
 		
 		return redirect('/expenseReports?sortBy=' . $input['sortBy'] . '&sortOrder=' . $input['sortOrder']);
 	}
 	
 	public function closeReport(CloseReportRequest $request, $id, AppMailer $mailer) {
-		$report = ExpenseReport::findorFail($id);
+		$report = ExpenseReport::findorFail($id)->load('owner', 'users');
 		if($report->expenses()->count() == 0) {
 			return redirect()->back()->withErrors('Reports with no expenses cannot be closed. Consider deleting it.');
 		}
