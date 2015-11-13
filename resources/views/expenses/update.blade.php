@@ -3,7 +3,7 @@
 @section('content')
 
 	@include('utilities.quickLinks', ['links' => [[$isArchived?'/settledExpenseReports':'/expenseReports', $isArchived?'Archived Reports':'Active Reports'], ['/expenseReports/'. $report->id, $report->title]]])
-	<h3><span class="reportTitle">{{ $expense->title }}</span></h3>
+	<h3>Update Expense: <span class="reportTitle">{{ $expense->title }}</span></h3>
 	<hr>
 	<div class="col-sm-6">
 		{!! Form::model($expense, ['url' => 'expenses/edit/'. $expense->id, 'method' => 'PATCH']) !!}

@@ -6,8 +6,6 @@
 		<title>Settle Up!</title>
 		<link rel="stylesheet" href="/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/css/settleUp.css">
-		<script src="/js/jquery-2.1.4.min.js"></script>
-		<script src="/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse">
@@ -21,6 +19,10 @@
 		      <a class="navbar-brand" href="/">Settle Up!</a>
 		    </div>
 		    <div class="collapse navbar-collapse" id="myNavbar">
+   		      <ul class="nav navbar-nav navbar-right">
+   		      	<li><a href="/login">Login</a></li>
+   		      	<li><a href="/register">Register</a></li>
+   		      </ul>
 		    </div>
 		  </div>
 		</nav>	

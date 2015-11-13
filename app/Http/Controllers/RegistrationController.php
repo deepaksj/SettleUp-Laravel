@@ -11,6 +11,10 @@ use Socialize;
 class RegistrationController extends Controller {
 
 	public function register() {
+		if(\Auth::check()) {
+			return redirect('/dashboard');
+		}
+		
 		return view('auth.register');
 	}
 	
@@ -32,7 +36,7 @@ class RegistrationController extends Controller {
 		$user->token = null;
 		$user->save();
 		
-		return redirect('login');
+		return redirect('/login');
 	}
 	
 	public function redirectToFacebook()

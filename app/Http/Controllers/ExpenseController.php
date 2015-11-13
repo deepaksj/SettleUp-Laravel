@@ -93,6 +93,7 @@ class ExpenseController extends Controller {
 			$expense->usage_total += $participantContribution['participation_ratio'];
 		}
 		$expense->date = $input['date'];
+		$expense->title = $input['title'];
 		$expense->save();
 	}
 	

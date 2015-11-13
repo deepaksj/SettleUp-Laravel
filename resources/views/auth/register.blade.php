@@ -61,6 +61,10 @@
 							<a href="/register/facebook"><img alt="Facebook" src="/images/signUpUsingFacebook.jpg" height="50" width="230"></a>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-sm-4"></div>
+						<div>Please read the <a href="{{url('/terms.html')}}">Terms & Conditions</a> for your use of this site.</div>
+					</div>
 				</div>
 			</div>
 		</div>

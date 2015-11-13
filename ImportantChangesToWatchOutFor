@@ -1,0 +1,3 @@
+1. ResetsPasswords has been changed to remove the 'bcryption' of passwords as there is a setAttribute Method in User class
+2. ResetsPasswords has been changed to set user->verified to be true since user is proven to have access to email
+3. ResetsPasswords had been changed to reflect a redirect path of '/dashboard'

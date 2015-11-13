@@ -10,6 +10,9 @@ use Illuminate\Http\RedirectResponse;
 class SessionsController extends Controller {
 
 	public function login() {
+		if(Auth::check()) {
+			return redirect('/dashboard');
+		}
 		
 		return view('auth.login');
 	}
@@ -19,7 +22,7 @@ class SessionsController extends Controller {
 		$this->validate($request, ['email' => 'required|email', 'password' => 'required']);
 		
 		if(Auth::attempt($this->getCredentials($request))) {
-			return redirect()->intended('/expenseReports');
+			return redirect()->intended('/dashboard');
 		}
 		
 		return redirect()->back()->withInput()->withErrors('User not found or incorrect credentials');
@@ -31,7 +34,7 @@ class SessionsController extends Controller {
 		Auth::logout();
 		session()->flash('message', 'You are now logged out.');
 		
-		return redirect('login');
+		return redirect('/');
 	}
 	
 	public function getCredentials(Request $request) {

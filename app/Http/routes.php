@@ -11,8 +11,12 @@
 |
 */
 
-Route::get('about', 'PagesController@about');
-Route::get('contact', 'PagesController@contact');
+Route::get('/', function () {
+	if(\Auth::check()) {
+		return redirect('/dashboard');
+	}
+	return view('home');
+});
 
 Route::controllers([
 		'auth' => 'Auth\AuthController',
@@ -34,8 +38,7 @@ Route::post('login', 'SessionsController@postLogin');
 Route::get('logout', 'SessionsController@logout');
 Route::get('/myAccount', ['middleware' => 'auth', 'uses' => 'UserController@editAccount']);
 Route::patch('/myAccount', ['middleware' => 'auth', 'uses' => 'UserController@updateAccount']);
-Route::get('/', ['middleware' => 'auth', 'uses' => 'ExpenseReportController@reportList']);
-Route::get('/home', ['middleware' => 'auth', 'uses' => 'ExpenseReportController@reportList']);
+Route::get('/dashboard', ['middleware' => 'auth', 'uses' => 'ExpenseReportController@reportList']);
 Route::get('expenseReports', ['middleware' => 'auth', 'uses' => 'ExpenseReportController@reportList']);
 Route::get('settledExpenseReports', ['middleware' => 'auth', 'uses' => 'ExpenseReportController@settledReportList']);
 Route::get('expenseReports/create', ['middleware' => 'auth', 'uses' => 'ExpenseReportController@createReport']);

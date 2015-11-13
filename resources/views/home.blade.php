@@ -1,4 +1,4 @@
-@extends('app')
+@extends('welcome')
 
 @section('content')
 <div class="container">
@@ -15,3 +15,13 @@
 	</div>
 </div>
 @endsection
+@section('footer')
+	<section class="bottom_last_ftoor clearfix">
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+			<p>© Copyright 2015. All rights reserved | 
+				<a href="/privacy.html">Privacy Policy</a> | 
+				<a href="/terms.html">Terms &amp; Condition</a> | 
+				<a href="mailto:info@app-portion.com">Contact Us</a></p>
+		</div>
+	</section>
+@stop
