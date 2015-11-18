@@ -31,12 +31,17 @@ class RegistrationController extends Controller {
 	
 	public function confirmEmail($token) {
 		
-		$user = User::whereToken($token)->firstOrFail();
-		$user->verified = true;
-		$user->token = null;
-		$user->save();
+		$user = User::whereToken($token)->first();
+		if($user != null) {
+			$user->verified = true;
+			$user->token = null;
+			$user->save();
+			\Auth::loginUsingId($user->id);
+			
+			return redirect('/myAccount');
+		} 
 		
-		return redirect('/login');
+		return redirect('/register');
 	}
 	
 	public function redirectToFacebook()

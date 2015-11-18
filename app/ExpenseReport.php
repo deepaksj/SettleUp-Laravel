@@ -108,7 +108,7 @@ class ExpenseReport extends Model {
 	}*/
 	
 	public function updateStatus($status) {
-		//0 - Open; 1- Closed; 2-Setlements determined; 3-Settlements completed
+		//0 - Open; 1- Closed; 2-Setlements determined; 3-Settlements completed; 4-Settlements are not necessary
 		$this->status = $status;
 		if($status==1) {
 			$this->closeDate = Carbon\Carbon::now();
@@ -159,7 +159,7 @@ class ExpenseReport extends Model {
 	}
 	
 	public function isArchivedForUser($userId) {
-		if($this->status == 3) {
+		if($this->status >= 3) {
 			return true;
 		} else if($this->status == 2) {
 			$settlements = $this->settlements()->where('completed', 0)

@@ -161,6 +161,7 @@ class ExpenseReportController extends Controller {
 		if(!$report->areSettlementsNecessary()) {
 			$messageHeader = 'Settlements for: ' . $report->title;
 			$messageBody = 'No settlements are necessary! All users have paid the right amount towards expenses.';
+			$report->updateStatus(4);
 			return view('utilities.displayMessage', compact(['messageHeader', 'messageBody', 'report']));
 		}
 		$owees = $oweesAndOwed['owees'];

@@ -61,7 +61,7 @@ class SettlementController extends Controller {
 			}
 			
 			return redirect('expenseReports/' . $reportId . '/close');
-		}
+		} 
 		
 		$report = ExpenseReport::find($reportId);
 		$isArchived = $report->isArchivedForUser(\Auth::user()->id);

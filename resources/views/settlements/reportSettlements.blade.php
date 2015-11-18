@@ -32,11 +32,11 @@
 								@if($settlement->owee_id == $authenticatedUser->id)
 									<td class="reportTitle">You</td>
 									<td>owe</td>
-									<?php $msg = "You paid " . $settlement->oweeName . " $" . $settlement->amount ?>
+									<?php $msg = "You paid " . $settlement->oweeName . " $" . number_format($settlement->amount, 2, ".", ",") ?>
 								@else
 									<td class="reportTitle">{{$settlement->oweeName}}</td>
 									<td>owes</td>
-									<?php $msg = $settlement->oweeName . " paid you $" . $settlement->amount ?>
+									<?php $msg = $settlement->oweeName . " paid you $" . number_format($settlement->amount, 2, ".", ",") ?>
 								@endif
 								@if($settlement->owed_id == $authenticatedUser->id)
 									<td class="reportTitle">You</td>

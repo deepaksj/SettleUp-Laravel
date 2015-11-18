@@ -5,7 +5,7 @@
 		<td></td>
 	@endif
 	<td class="setWidth concat"><a href="{{ url('expenseReports', $report->id) }}">{{ $report->title }}</a></td>
-	<td>{{ date('m/d/Y', strtotime($report->status?$report->endDate:$report->startDate)) }} </td>
+	<td>{{ date('m/d/Y', strtotime($report->status?$report->closeDate:$report->startDate)) }} </td>
 	<td>@include('utilities.currency', ['amountToBeFormatted' => $report->reportTotal()])</td>
 	<td>@include('utilities.currency', ['amountToBeFormatted' => $report->owner_id == \Auth::user()->id?$report->ownerTotal():$report->participantTotal(\Auth::user()->id)])</td>
 	@if($report->owner_id == \Auth::user()->id)
