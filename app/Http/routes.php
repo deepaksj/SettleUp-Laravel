@@ -1,16 +1,16 @@
 <?php
 
-Route::group(['domain' => '{sub}.' . Request::server('SERVER_NAME')], function () {
+Route::group(['domain' => '{sub}.' . env('HTTP_DOMAIN')], function () {
     Route::get('/', function () {
-        return redirect('http://' . Request::server('SERVER_NAME') . '/');
+        return redirect('http://' . env('HTTP_DOMAIN') . '/');
     });
 
     Route::get('/login', function () {
-        return redirect('http://' . Request::server('SERVER_NAME') . '/login');
+        return redirect('http://' . env('HTTP_DOMAIN') . '/login');
     });
 
     Route::get('/register', function () {
-        return redirect('http://' . Request::server('SERVER_NAME') . '/register');
+        return redirect('http://' . env('HTTP_DOMAIN') . '/register');
     });
 });
 
