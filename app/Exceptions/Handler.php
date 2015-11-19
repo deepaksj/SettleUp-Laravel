@@ -37,7 +37,11 @@ class Handler extends ExceptionHandler {
 	public function render($request, Exception $e)
 	{
 		if(env('APP_DEBUG') != 'true') {
-			return response()->view('errors.catchall');
+			if(\Auth::check()) {
+				return response()->view('errors.catchall');
+			} else {
+				return response()->view('errors.guestCatchall');
+			}
 		}
 		return parent::render($request, $e);
 	}

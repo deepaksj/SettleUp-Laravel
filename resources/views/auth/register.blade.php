@@ -1,7 +1,6 @@
 @extends('welcome')
 
 @section('content')
-<br><br><br><br><br><br>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
