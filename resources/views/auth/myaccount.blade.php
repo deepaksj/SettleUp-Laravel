@@ -1,6 +1,7 @@
 @extends('app')
 	
 @section('content')
+	<br><br><br><br><br><br>
 	<h3>Update My Account</h3>
 	<hr>
 	@include('utilities.flashmessage')
