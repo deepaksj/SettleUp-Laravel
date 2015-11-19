@@ -1,6 +1,18 @@
 <?php
 
-Route::pattern('subdomain', 'www');
+Route::group(['domain' => '{sub}.' . Request::server('SERVER_NAME')], function () {
+    Route::get('/', function () {
+        return redirect('http://' . Request::server('SERVER_NAME') . '/');
+    });
+
+    Route::get('/login', function () {
+        return redirect('http://' . Request::server('SERVER_NAME') . '/login');
+    });
+
+    Route::get('/register', function () {
+        return redirect('http://' . Request::server('SERVER_NAME') . '/register');
+    });
+});
 
 Route::get('/', function () {
 	if(\Auth::check()) {
