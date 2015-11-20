@@ -37,11 +37,12 @@ class RegistrationController extends Controller {
 			$user->token = null;
 			$user->save();
 			\Auth::loginUsingId($user->id);
+			session()->flash('message', 'Your email is now confirmed and your account activated. Please update your details');
 			
 			return redirect('/myAccount');
 		} 
 		
-		return redirect('/register');
+		return redirect('/register')->withErrors("Registration token not found");
 	}
 	
 	public function redirectToFacebook()
@@ -67,6 +68,7 @@ class RegistrationController extends Controller {
 				$user->verified = true;
 				$user->token = null;
 				$user->save();
+				session()->flash('message', 'You are now registered. Please update your account details.');
 			} else {
 				return redirect()->back()->withErrors('User already exists');
 			} 
@@ -79,6 +81,6 @@ class RegistrationController extends Controller {
 		}
 		
 		\Auth::loginUsingId($user->id);
-		return redirect()->intended();
+		return redirect()->intended('/myAccount');
 	}
 }

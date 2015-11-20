@@ -19,11 +19,11 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>                        
 		      </button>
-		      <a class="navbar-brand" href="/">App-portion!</a>
+		      <a class="navbar-brand" href="/" style="color: white;">App-portion!</a>
 		    </div>
 		    <div class="collapse navbar-collapse" id="myNavbar">
 		      <ul class="nav navbar-nav">
-		        <li class="active"><a href="#">Home</a></li>
+		        <li></li>
 		        <li class="dropdown">
 		        	<a class="dropdown-toggle" data-toggle="dropdown" href="#">Expense Reports<span class="caret"></span></a>
           			<ul class="dropdown-menu">
