@@ -85,9 +85,9 @@
 							<th class="col-sm-1 expensesTable" rowspan="2">Date</th>
 							<th class="col-sm-2 expensesTable" rowspan="2">Title</th>
 							<th class="col-sm-1 expensesTable" rowspan="2">Total</th>
-							<th class="col-sm-1 expensesTableHeader" colspan="2">{{ $report->owner->name }}</th>
+							<th class="col-sm-1 expensesTableHeader" colspan="2">{{ \Auth::user()->id==$report->owner_id?'You':$report->owner->name }}</th>
 							@foreach($report->users as $user)
-								<th class="col-sm-1 expensesTableHeader" colspan="2">{{ $user->name }}</th>
+								<th class="col-sm-1 expensesTableHeader" colspan="2">{{ \Auth::user()->id==$user->id?'You':$user->name }}</th>
 							@endforeach
 						</tr>
 						<tr  class="info">
@@ -105,8 +105,8 @@
 								<td>{{ date('m/d/Y', strtotime($expense->date)) }} </td>
 								<td><a href="/expenses/edit/{{ $expense->id }}">{{ $expense->title }}</a></td>
 								<td>@include('utilities.currency', ['amountToBeFormatted' => $expense->amount])</td>
-								<td class="expensesTableBorder">@include('utilities.currency', ['amountToBeFormatted' => $expense->participantContribution($expense->owner_id)])</td>
-								<td>@include('utilities.currency', ['amountToBeFormatted' => $expense->participantUsage($expense->owner_id)])</td>
+								<td class="expensesTableBorder">@include('utilities.currency', ['amountToBeFormatted' => $expense->participantContribution($report->owner_id)])</td>
+								<td>@include('utilities.currency', ['amountToBeFormatted' => $expense->participantUsage($report->owner_id)])</td>
 								@foreach($report->users as $user)
 									<td class="expensesTableBorder">@include('utilities.currency', ['amountToBeFormatted' => $expense->participantContribution($user->id)])</td>
 									<td>@include('utilities.currency', ['amountToBeFormatted' => $expense->participantUsage($user->id)])</td>

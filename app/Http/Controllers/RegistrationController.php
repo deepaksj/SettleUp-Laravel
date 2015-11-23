@@ -69,18 +69,19 @@ class RegistrationController extends Controller {
 				$user->token = null;
 				$user->save();
 				session()->flash('message', 'You are now registered. Please update your account details.');
+				\Auth::loginUsingId($user->id);
+				return redirect()->intended('/myAccount');
 			} else {
 				return redirect()->back()->withErrors('User already exists');
 			} 
 		} else {
 			if($appUser->count() == 0) {
-				session()->flash('message', 'User not found.');
-				return redirect()->back();
+				return redirect()->back()->withErrors('User not found');
 			}
 			$user = $appUser[0];
 		}
 		
 		\Auth::loginUsingId($user->id);
-		return redirect()->intended('/myAccount');
+		return redirect()->intended('/dashboard');
 	}
 }

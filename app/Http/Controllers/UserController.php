@@ -71,10 +71,10 @@ class UserController extends Controller {
 		$user->password = $input['password'];
 		$user->save();
 		
-		session()->flash("message", "Account Updated");
+		session()->flash("message", "Account Updated. Go ahead and create Reports!");
 		$mailer->sendAccountUpdatedNotification($user);
 		
-		return redirect("/myAccount");
+		return redirect("/dashboard");
 	}
 	
 	public function friendsList(Request $request) {
