@@ -104,7 +104,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 										//And check for settlement conditions
 										})->where(function ($query) {
 											//Report is completely settled
-											$query->where('status', '=', 3)
+											$query->where('status', '>=', 3)
 													//Or if status=2, there are no incomplete settlements for this user
 													->orWhere(function ($query) {
 														$query->where('status', '=', 2)
