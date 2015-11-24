@@ -70,7 +70,7 @@ class RegistrationController extends Controller {
 				$user->save();
 				session()->flash('message', 'You are now registered. Please update your account details.');
 				\Auth::loginUsingId($user->id);
-				return redirect()->intended('/myAccount');
+				return redirect('/myAccount');
 			} else {
 				return redirect()->back()->withErrors('User already exists');
 			} 
