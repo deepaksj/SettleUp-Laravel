@@ -81,6 +81,7 @@ $(document).ready(function(){
 	    	previousRadioChecked = null;
 	    	$(":radio:first").click();
 	    	checkedOrderArr = [];
+	    	$(":checkbox:not(:checked)").prop("disabled", false);
     	}
     	else {
     		$("#confirmBtnDiv").hide();

@@ -155,8 +155,10 @@ class ExpenseReportController extends Controller {
 		if($report->expenses()->count() == 0) {
 			return redirect()->back()->withErrors('Reports with no expenses cannot be closed. Consider deleting it.');
 		}
-		$report->updateStatus(1);
-		$mailer->sendReportClosedNotification($report);
+		if($report->status == 0) {
+			$report->updateStatus(1);
+			$mailer->sendReportClosedNotification($report);
+		}
 		$oweesAndOwed = $report->oweesAndOwed();
 		if(!$report->areSettlementsNecessary()) {
 			$messageHeader = 'Settlements for: ' . $report->title;

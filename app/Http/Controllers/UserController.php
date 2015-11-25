@@ -27,6 +27,10 @@ class UserController extends Controller {
 		if($users->count() > 0) {
 			$userAdded = $users->first();
 			
+			if($userAdded->email == \Auth::user()->email) {
+				return [$userAdded, 0, "You cannot add yourself as a friend!"];
+			}
+			
 			if($friends->find($userAdded['id']) == null) {
 				$friends->attach($userAdded);
 				$message = $userAdded->name. " (". $userAdded->email .") already exists in the system and has been added as your friend!";

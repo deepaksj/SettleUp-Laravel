@@ -8,7 +8,7 @@
 	</div>
 	<div>
 		@foreach($settlementMessages as $message)
-			<li>{{$message}}</li>
+			<li>{{$message}}</li><br>
 		@endforeach
 	</div>
 @stop
